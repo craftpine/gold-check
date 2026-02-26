@@ -1,0 +1,63 @@
+<div class="bg-white rounded-lg border border-slate-200 shadow-sm p-6 flex flex-col h-full min-h-[520px]">
+  <div class="flex items-center justify-between mb-8">
+    <div>
+      <h3 class="font-bold text-slate-900 text-lg">Price Trend (XAU/USD)</h3>
+      <p class="text-sm text-slate-500">Intraday performance for global spot</p>
+    </div>
+    <div class="flex gap-2 bg-slate-100 p-1 rounded-lg">
+      @for (range of timeRanges; track range.value) {
+        <button
+          [class]="range.active
+            ? 'px-3 py-1 text-xs font-bold rounded bg-white text-slate-900 shadow-sm'
+            : 'px-3 py-1 text-xs font-bold text-slate-500 hover:text-slate-700'"
+          (click)="selectTimeRange(range)">
+          {{ range.label }}
+        </button>
+      }
+    </div>
+  </div>
+  <div class="flex-1 relative chart-gradient rounded-lg border border-slate-50 mb-8 overflow-hidden">
+    <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 800 400">
+      <defs>
+        <linearGradient id="chartLineGradient" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stop-color="#d97706" stop-opacity="0.15"></stop>
+          <stop offset="100%" stop-color="#d97706" stop-opacity="0"></stop>
+        </linearGradient>
+      </defs>
+      <path
+        d="M0,300 C100,280 150,320 200,260 S300,150 400,180 S500,80 600,120 S700,40 800,60 L800,400 L0,400 Z"
+        fill="url(#chartLineGradient)"></path>
+      <path d="M0,300 C100,280 150,320 200,260 S300,150 400,180 S500,80 600,120 S700,40 800,60" fill="none"
+        stroke="#d97706" stroke-linecap="round" stroke-width="3"></path>
+      <line stroke="#f1f5f9" stroke-dasharray="4" x1="0" x2="800" y1="100" y2="100"></line>
+      <line stroke="#f1f5f9" stroke-dasharray="4" x1="0" x2="800" y1="200" y2="200"></line>
+      <line stroke="#f1f5f9" stroke-dasharray="4" x1="0" x2="800" y1="300" y2="300"></line>
+      <circle cx="800" cy="60" fill="#d97706" r="4"></circle>
+      <circle cx="800" cy="60" fill="#d97706" fill-opacity="0.2" r="10"></circle>
+    </svg>
+    <div
+      class="absolute inset-x-0 bottom-[-24px] flex justify-between px-2 text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+      <span>00:00</span>
+      <span>06:00</span>
+      <span>12:00</span>
+      <span>18:00</span>
+      <span class="text-amber-600">Now</span>
+    </div>
+  </div>
+  <div class="grid grid-cols-3 gap-6 pt-6 border-t border-slate-100">
+    <div>
+      <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">Current Price</p>
+      <div class="flex items-baseline gap-1">
+        <p class="text-2xl font-bold text-slate-900">{{ currentPrice }}</p>
+      </div>
+    </div>
+    <div>
+      <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">24h High</p>
+      <p class="text-2xl font-bold text-emerald-600">{{ highPrice }}</p>
+    </div>
+    <div>
+      <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">24h Low</p>
+      <p class="text-2xl font-bold text-rose-600">{{ lowPrice }}</p>
+    </div>
+  </div>
+</div>

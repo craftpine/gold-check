@@ -1,13 +1,41 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
   <meta charset="utf-8">
-  <title>GoldPrice</title>
+  <title>GoldTrack - Simplified Gold Price Dashboard</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  <style type="text/tailwindcss">
+    :root {
+      --primary: #d97706;
+      --primary-light: #fef3c7;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .chart-gradient {
+      background: linear-gradient(180deg, rgba(217, 119, 6, 0.1) 0%, rgba(217, 119, 6, 0) 100%);
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #e2e8f0;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #cbd5e1;
+    }
+  </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-900 overflow-hidden">
   <app-root></app-root>
 </body>
 </html>

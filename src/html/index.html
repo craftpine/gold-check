@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>GoldTrack - Simplified Gold Price Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style type="text/tailwindcss">
+        :root {
+            --primary: #d97706;
+            --primary-light: #fef3c7;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-gradient {
+            background: linear-gradient(180deg, rgba(217, 119, 6, 0.1) 0%, rgba(217, 119, 6, 0) 100%);
+        }::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #cbd5e1;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900 overflow-hidden">
+    <div class="flex h-screen w-full overflow-hidden">
+        <aside class="w-64 bg-slate-900 flex-shrink-0 flex flex-col">
+            <div class="p-6 flex items-center gap-3">
+                <div class="size-8 bg-amber-500 rounded-lg flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white">payments</span>
+                </div>
+                <h1 class="text-white text-xl font-bold tracking-tight">GoldTrack</h1>
+            </div>
+            <nav class="flex-1 px-4 space-y-1">
+                <a class="flex items-center gap-3 px-3 py-2 text-white bg-slate-800 rounded-lg group" href="#">
+                    <span class="material-symbols-outlined text-amber-500">dashboard</span>
+                    <span class="font-medium">Dashboard</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-all group"
+                    href="#">
+                    <span
+                        class="material-symbols-outlined group-hover:text-amber-500 transition-colors">show_chart</span>
+                    <span class="font-medium">Markets</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-all group"
+                    href="#">
+                    <span class="material-symbols-outlined group-hover:text-amber-500 transition-colors">history</span>
+                    <span class="font-medium">History</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-all group"
+                    href="#">
+                    <span class="material-symbols-outlined group-hover:text-amber-500 transition-colors">settings</span>
+                    <span class="font-medium">Settings</span>
+                </a>
+            </nav>
+            <div class="p-4 border-t border-slate-800">
+                <div class="flex items-center gap-3 px-3 py-2">
+                    <img alt="Profile" class="size-8 rounded-full border border-slate-700"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCemzHJ78gyKN44fFtC8Aufkd50SthT1yU56yIlx-XP2fX7b1mKrRsMzGnQNC1Bguz5IJIEhrO73ow_PLqukJEGvefxdbmrYcF1uWM0TFdKcjrNMz73jljIHAPW6s3nEQA-AKOT959lPvJjnzLe9K_Cr1SiSlvT_Y1X8U59sYYxV8YVY0pRrR4Mpv6fHNo1oKXgHHbOHymL3RWs6K1Du5xACG-Dx8SKUmnEAEsM1EY1ILCifgjZaK5v_2c5L4gkxMA7cw1vCwvqytHS" />
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-white truncate">Alex Johnson</p>
+                        <p class="text-xs text-slate-500 truncate">Premium Member</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <main class="flex-1 flex flex-col min-w-0 overflow-hidden">
+            <header
+                class="bg-white border-b border-slate-200 px-8 py-4 flex items-center justify-between sticky top-0 z-10 flex-shrink-0">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Real-time Dashboard</h2>
+                    <p class="text-sm text-slate-500">Live gold price performance across major sources</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="relative">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+                        <input
+                            class="pl-10 pr-4 py-2 bg-slate-100 border-none rounded-lg text-sm focus:ring-2 focus:ring-amber-500 w-64"
+                            placeholder="Search markets..." type="text" />
+                    </div>
+                    <button class="flex items-center justify-center p-2 text-slate-400 hover:text-slate-600">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                </div>
+            </header>
+            <div class="p-8 h-full overflow-y-auto">
+                <div class="grid grid-cols-12 gap-8 max-w-7xl mx-auto h-full items-start">
+                    <div class="col-span-12 xl:col-span-5 flex flex-col gap-6">
+                        <div class="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+                            <div
+                                class="px-6 py-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+                                <h3 class="font-semibold text-slate-800">Source Comparison</h3>
+                                <span
+                                    class="text-[10px] font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 uppercase">Live
+                                    Update</span>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-sm">
+                                    <thead>
+                                        <tr class="bg-slate-50 text-slate-500 font-medium border-b border-slate-200">
+                                            <th class="px-6 py-3">Source</th>
+                                            <th class="px-6 py-3">Buy</th>
+                                            <th class="px-6 py-3">Sell</th>
+                                            <th class="px-6 py-3 text-right">24h Change</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100">
+                                        <tr class="hover:bg-slate-50 transition-colors">
+                                            <td class="px-6 py-4 font-semibold text-slate-900">SJC</td>
+                                            <td class="px-6 py-4">81.50M</td>
+                                            <td class="px-6 py-4">83.50M</td>
+                                            <td class="px-6 py-4 text-right">
+                                                <span
+                                                    class="text-emerald-600 font-medium inline-flex items-center gap-1 justify-end">
+                                                    <span class="material-symbols-outlined text-xs">arrow_upward</span>
+                                                    0.45%
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50 transition-colors">
+                                            <td class="px-6 py-4 font-semibold text-slate-900">Doji</td>
+                                            <td class="px-6 py-4">81.45M</td>
+                                            <td class="px-6 py-4">83.45M</td>
+                                            <td class="px-6 py-4 text-emerald-600 font-medium text-right">+0.38%</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50 transition-colors">
+                                            <td class="px-6 py-4 font-semibold text-slate-900">PNJ</td>
+                                            <td class="px-6 py-4">72.80M</td>
+                                            <td class="px-6 py-4">74.60M</td>
+                                            <td class="px-6 py-4 text-rose-600 font-medium text-right">-0.12%</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50 transition-colors">
+                                            <td class="px-6 py-4 font-semibold text-slate-900">BTMC</td>
+                                            <td class="px-6 py-4">81.55M</td>
+                                            <td class="px-6 py-4">83.45M</td>
+                                            <td class="px-6 py-4 text-emerald-600 font-medium text-right">+0.51%</td>
+                                        </tr>
+                                        <tr class="hover:bg-slate-50 transition-colors">
+                                            <td class="px-6 py-4 font-semibold text-slate-900">World Spot</td>
+                                            <td class="px-6 py-4">$2,345.6</td>
+                                            <td class="px-6 py-4">$2,346.2</td>
+                                            <td class="px-6 py-4 text-emerald-600 font-medium text-right">+1.25%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="px-6 py-3 bg-slate-50 border-t border-slate-200">
+                                <button
+                                    class="text-xs font-bold text-amber-600 hover:text-amber-700 uppercase tracking-wider">Detailed
+                                    Data Export</button>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span
+                                        class="material-symbols-outlined text-sm text-slate-400">currency_exchange</span>
+                                    <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">USD/VND</p>
+                                </div>
+                                <p class="text-2xl font-bold text-slate-900">25,450</p>
+                                <span
+                                    class="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-1.5 py-0.5 rounded">+0.05%
+                                    Today</span>
+                            </div>
+                            <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="material-symbols-outlined text-sm text-slate-400">compare_arrows</span>
+                                    <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Spread Avg</p>
+                                </div>
+                                <p class="text-2xl font-bold text-slate-900">2.00M</p>
+                                <span
+                                    class="text-[10px] text-slate-400 font-bold bg-slate-100 px-1.5 py-0.5 rounded">Stable
+                                    Range</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-span-12 xl:col-span-7">
+                        <div
+                            class="bg-white rounded-lg border border-slate-200 shadow-sm p-6 flex flex-col h-full min-h-[520px]">
+                            <div class="flex items-center justify-between mb-8">
+                                <div>
+                                    <h3 class="font-bold text-slate-900 text-lg">Price Trend (XAU/USD)</h3>
+                                    <p class="text-sm text-slate-500">Intraday performance for global spot</p>
+                                </div>
+                                <div class="flex gap-2 bg-slate-100 p-1 rounded-lg">
+                                    <button
+                                        class="px-3 py-1 text-xs font-bold rounded bg-white text-slate-900 shadow-sm">1D</button>
+                                    <button
+                                        class="px-3 py-1 text-xs font-bold text-slate-500 hover:text-slate-700">1W</button>
+                                    <button
+                                        class="px-3 py-1 text-xs font-bold text-slate-500 hover:text-slate-700">1M</button>
+                                    <button
+                                        class="px-3 py-1 text-xs font-bold text-slate-500 hover:text-slate-700">1Y</button>
+                                </div>
+                            </div>
+                            <div
+                                class="flex-1 relative chart-gradient rounded-lg border border-slate-50 mb-8 overflow-hidden">
+                                <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 800 400">
+                                    <defs>
+                                        <linearGradient id="chartLineGradient" x1="0" x2="0" y1="0" y2="1">
+                                            <stop offset="0%" stop-color="#d97706" stop-opacity="0.15"></stop>
+                                            <stop offset="100%" stop-color="#d97706" stop-opacity="0"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                    <path
+                                        d="M0,300 C100,280 150,320 200,260 S300,150 400,180 S500,80 600,120 S700,40 800,60 L800,400 L0,400 Z"
+                                        fill="url(#chartLineGradient)"></path>
+                                    <path
+                                        d="M0,300 C100,280 150,320 200,260 S300,150 400,180 S500,80 600,120 S700,40 800,60"
+                                        fill="none" stroke="#d97706" stroke-linecap="round" stroke-width="3"></path>
+                                    <line stroke="#f1f5f9" stroke-dasharray="4" x1="0" x2="800" y1="100" y2="100">
+                                    </line>
+                                    <line stroke="#f1f5f9" stroke-dasharray="4" x1="0" x2="800" y1="200" y2="200">
+                                    </line>
+                                    <line stroke="#f1f5f9" stroke-dasharray="4" x1="0" x2="800" y1="300" y2="300">
+                                    </line>
+                                    <circle cx="800" cy="60" fill="#d97706" r="4"></circle>
+                                    <circle cx="800" cy="60" fill="#d97706" fill-opacity="0.2" r="10"></circle>
+                                </svg>
+                                <div
+                                    class="absolute inset-x-0 bottom-[-24px] flex justify-between px-2 text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+                                    <span>00:00</span>
+                                    <span>06:00</span>
+                                    <span>12:00</span>
+                                    <span>18:00</span>
+                                    <span class="text-amber-600">Now</span>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-6 pt-6 border-t border-slate-100">
+                                <div>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">Current Price</p>
+                                    <div class="flex items-baseline gap-1">
+                                        <p class="text-2xl font-bold text-slate-900">$2,345.60</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">24h High</p>
+                                    <p class="text-2xl font-bold text-emerald-600">$2,351.24</p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">24h Low</p>
+                                    <p class="text-2xl font-bold text-rose-600">$2,318.40</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+
+</html>

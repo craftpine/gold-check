@@ -1,0 +1,24 @@
+<div class="p-8 h-full">
+  <div class="grid grid-cols-12 gap-8 max-w-7xl mx-auto h-full items-start">
+    <div class="col-span-12 xl:col-span-5 flex flex-col gap-6">
+      <app-source-comparison />
+      <div class="grid grid-cols-2 gap-4">
+        <app-stats-card
+          icon="currency_exchange"
+          label="USD/VND"
+          value="25,450"
+          badge="+0.05% Today"
+          badgeType="success" />
+        <app-stats-card
+          icon="compare_arrows"
+          label="Spread Avg"
+          value="2.00M"
+          badge="Stable Range"
+          badgeType="neutral" />
+      </div>
+    </div>
+    <div class="col-span-12 xl:col-span-7">
+      <app-price-chart />
+    </div>
+  </div>
+</div>

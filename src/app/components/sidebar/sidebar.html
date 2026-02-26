@@ -1,0 +1,38 @@
+<aside class="w-64 bg-slate-900 flex-shrink-0 flex flex-col h-screen">
+  <div class="p-6 flex items-center gap-3">
+    <div class="size-8 bg-amber-500 rounded-lg flex items-center justify-center">
+      <span class="material-symbols-outlined text-white">payments</span>
+    </div>
+    <h1 class="text-white text-xl font-bold tracking-tight">GoldTrack</h1>
+  </div>
+
+  <nav class="flex-1 px-4 space-y-1">
+    @for (item of navItems; track item.label) {
+      <a
+        [routerLink]="item.route"
+        routerLinkActive="!text-white !bg-slate-800"
+        [routerLinkActiveOptions]="{exact: false}"
+        class="flex items-center gap-3 px-3 py-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-all group">
+        <span
+          class="material-symbols-outlined group-hover:text-amber-500 transition-colors"
+          routerLinkActive="!text-amber-500">
+          {{ item.icon }}
+        </span>
+        <span class="font-medium">{{ item.label }}</span>
+      </a>
+    }
+  </nav>
+
+  <div class="p-4 border-t border-slate-800">
+    <div class="flex items-center gap-3 px-3 py-2">
+      <img
+        [alt]="user.name"
+        class="size-8 rounded-full border border-slate-700"
+        [src]="user.avatar" />
+      <div class="flex-1 min-w-0">
+        <p class="text-sm font-medium text-white truncate">{{ user.name }}</p>
+        <p class="text-xs text-slate-500 truncate">{{ user.role }}</p>
+      </div>
+    </div>
+  </div>
+</aside>
