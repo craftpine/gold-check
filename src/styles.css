@@ -1,3 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+
+:root {
+  --primary: #d97706;
+  --primary-light: #fef3c7;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.chart-gradient {
+  background: linear-gradient(180deg, rgba(217, 119, 6, 0.1) 0%, rgba(217, 119, 6, 0) 100%);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+}
