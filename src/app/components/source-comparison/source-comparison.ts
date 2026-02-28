@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GoldPriceService } from '../../services/gold-price.service';
+import { ToastService } from '../../services/toast.service';
 
 interface GoldSource {
   name: string;
@@ -9,6 +10,7 @@ interface GoldSource {
   change: number;
   changeLabel: string;
   isPositive: boolean;
+  groups: any[]; // Array of gold type groups within this source
 }
 
 @Component({
@@ -21,8 +23,12 @@ export class SourceComparison implements OnInit {
   sources: GoldSource[] = [];
   isLoading = true;
   error: string | null = null;
+  collapsedStates: Map<string, boolean> = new Map(); // Track collapsed state for each source
 
-  constructor(private goldPriceService: GoldPriceService) {}
+  constructor(
+    private goldPriceService: GoldPriceService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.loadGoldPrices();
@@ -62,6 +68,9 @@ export class SourceComparison implements OnInit {
             changePercent = ((latest.buyPrice - previous.buyPrice) / previous.buyPrice) * 100;
           }
 
+          // Initialize collapsed state (start expanded)
+          this.collapsedStates.set(sourcePrefix, false);
+
           return {
             name: sourcePrefix,
             buy: this.formatPrice(latest.buyPrice, latest.currency, sourcePrefix),
@@ -69,6 +78,7 @@ export class SourceComparison implements OnInit {
             change: changePercent,
             changeLabel: this.formatChangeLabel(changePercent),
             isPositive: changePercent >= 0,
+            groups: groups, // Include all groups for this source
           };
         });
 
@@ -91,12 +101,12 @@ export class SourceComparison implements OnInit {
     return goldType;
   }
 
-  private formatSourceName(goldType: string): string {
+  formatSourceName(goldType: string): string {
     // Replace underscores with spaces (e.g., "SJC_Nữ_trang_99%" -> "SJC Nữ trang 99%")
     return goldType.replace(/_/g, ' ');
   }
 
-  private formatPrice(price: number, currency: string, source: string): string {
+  formatPrice(price: number, currency: string, source: string): string {
     // Check if price is undefined or null
     if (price === undefined || price === null) {
       return '0';
@@ -104,7 +114,7 @@ export class SourceComparison implements OnInit {
 
     // For spot prices, use USD format
     if (source.toLowerCase() === 'spot') {
-      return `$${price.toFixed(2)}`;
+      return `$${price?.toFixed(2)}`;
     }
 
     // For VND prices (non-spot), format with thousand separators
@@ -119,6 +129,30 @@ export class SourceComparison implements OnInit {
   private formatChangeLabel(change: number): string {
     const sign = change >= 0 ? '+' : '';
     return `${sign}${change.toFixed(2)}%`;
+  }
+
+  toggleCollapse(sourceName: string): void {
+    const currentState = this.collapsedStates.get(sourceName) || false;
+    this.collapsedStates.set(sourceName, !currentState);
+  }
+
+  isCollapsed(sourceName: string): boolean {
+    return this.collapsedStates.get(sourceName) || false;
+  }
+
+  onCollectLatestPrices(): void {
+    this.goldPriceService.collectLatestPrices().subscribe({
+      next: (response) => {
+        console.log('Collect API response:', response);
+        this.toastService.success('Successfully collected latest gold prices!');
+        // Reload the data after collecting
+        this.loadGoldPrices();
+      },
+      error: (err) => {
+        console.error('Error collecting gold prices:', err);
+        this.toastService.error('Failed to collect latest gold prices. Please try again.');
+      },
+    });
   }
 
   onExportData(): void {

@@ -26,10 +26,15 @@ export interface GoldPriceGroup {
 })
 export class GoldPriceService {
   private apiUrl = 'http://localhost:3000/gold-prices/latest';
+  private collectUrl = 'http://localhost:3000/gold-prices/collect';
 
   constructor(private http: HttpClient) {}
 
   getLatestPrices(): Observable<GoldPriceGroup[]> {
     return this.http.get<GoldPriceGroup[]>(this.apiUrl);
+  }
+
+  collectLatestPrices(): Observable<any> {
+    return this.http.post<any>(this.collectUrl, {});
   }
 }

@@ -5,7 +5,7 @@ import { PriceChart } from '../price-chart/price-chart';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [SourceComparison, StatsCard, PriceChart],
+  imports: [SourceComparison, PriceChart],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

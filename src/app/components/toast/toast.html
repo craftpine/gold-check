@@ -1,0 +1,19 @@
+<div class="fixed top-4 right-4 z-50 flex flex-col gap-2">
+  @for (toast of toasts; track toast.id) {
+    <div
+      class="px-4 py-3 rounded-lg shadow-lg border flex items-center gap-3 min-w-[300px] animate-slideIn"
+      [class]="toast.type === 'success' ? 'bg-emerald-50 border-emerald-200 text-emerald-800' :
+               toast.type === 'error' ? 'bg-rose-50 border-rose-200 text-rose-800' :
+               'bg-blue-50 border-blue-200 text-blue-800'">
+      <span class="material-symbols-outlined text-lg">
+        {{ toast.type === 'success' ? 'check_circle' : toast.type === 'error' ? 'error' : 'info' }}
+      </span>
+      <span class="flex-1 text-sm font-medium">{{ toast.message }}</span>
+      <button
+        (click)="removeToast(toast.id)"
+        class="text-current hover:opacity-70 transition-opacity">
+        <span class="material-symbols-outlined text-lg">close</span>
+      </button>
+    </div>
+  }
+</div>
