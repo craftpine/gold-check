@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:gold-price": "node dist/gold-price/server/server.mjs",
-    "start:pm2": "npm i && npm run build && pm2 start dist/gold-price/server/server.mjs --name gold-price"
+    "start:pm2": "npm i && npm run build && (pm2 delete gold-price || true) && pm2 start dist/gold-price/server/server.mjs --name gold-price"
 
   },
   "private": true,
